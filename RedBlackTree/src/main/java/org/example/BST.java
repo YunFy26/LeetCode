@@ -28,8 +28,6 @@ class BinarySearchTree<K extends Comparable<K>, V> {
             node.left = insert(node.left, key, value);
         }else if (key.compareTo(node.key) > 0) {
             node.right = insert(node.right, key, value);
-        }else {
-            node.value = value;
         }
         return node;
     }
@@ -94,9 +92,12 @@ class BinarySearchTree<K extends Comparable<K>, V> {
                 return leftNode;
             }else {
                 Node<K, V> succ = minimum(node.right);
-                // 注意这里，后继节点的右孩子🟰
+                // 注意这里，后继节点的右孩子等于删除节点的右子树，但是移除了后继节点
                 succ.right = remove(node.right, succ.key);
+                // 后继节点的左子树等于删除节点的左子树
                 succ.left = node.left;
+                // 上面两行代码的顺序不能换，因为先执行第一行代码，node.left会被置为null
+
                 node.left = node.right = null;
                 return succ;
             }
@@ -142,10 +143,15 @@ public class BST{
         bst.insert(5, "c");
         bst.insert(4, "c");
         bst.insert(6, "c");
-        // System.out.println(bst.minimum(bst.getNode(2)).key);
+        // assert bst.getNode(bst.getNode(2).right.key).left.key == 4;
+        System.out.println(bst.getNode(bst.getNode(2).right.key).left.key);
+        System.out.println(bst.getNode(bst.getNode(2).right.key).right.key);
+        bst.insert(5, "c");
+        System.out.println(bst.getNode(bst.getNode(2).right.key).left.key);
+        System.out.println(bst.getNode(bst.getNode(2).right.key).right.key);
         // System.out.println(bst.minimum(bst.getNode(2)).key);
         // System.out.println(bst.getNode(1).key);
-        bst.remove(5);
-        System.out.println(bst.getNode(6).left.key);
+        // bst.remove(5);
+        // System.out.println(bst.getNode(6).left.key);
     }
 }
