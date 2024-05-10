@@ -93,11 +93,10 @@ class BinarySearchTree<K extends Comparable<K>, V> {
             }else {
                 Node<K, V> succ = minimum(node.right);
                 // 注意这里，后继节点的右孩子等于删除节点的右子树，但是移除了后继节点
-                succ.right = remove(node.right, succ.key);
+                succ.right = remove(node.right, succ.key); // 这里已经做了size--；
                 // 后继节点的左子树等于删除节点的左子树
                 succ.left = node.left;
                 // 上面两行代码的顺序不能换，因为先执行第一行代码，node.left会被置为null
-
                 node.left = node.right = null;
                 return succ;
             }
