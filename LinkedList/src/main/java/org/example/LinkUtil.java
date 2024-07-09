@@ -1,9 +1,23 @@
 package org.example;
 
+import org.junit.Test;
+
+import java.util.LinkedList;
 import java.util.Stack;
 
+import static org.junit.Assert.assertEquals;
+
+/**
+ * 链表工具
+ * @param <T>
+ */
 public class LinkUtil<T> {
-    // 两个链表交点
+    /**
+     * 寻找两个链表交点-无环
+     * @param headA
+     * @param headB
+     * @return
+     */
     private ListNode<T> getIntersectionNode(ListNode<T> headA, ListNode<T> headB) {
         if(headA == null || headB == null) return null;
         ListNode<T> pA = headA;
@@ -14,7 +28,12 @@ public class LinkUtil<T> {
         }
         return pA;
     }
-    // 反转链表 - 栈
+
+    /**
+     * 反转链表-栈
+     * @param head
+     * @return
+     */
     private ListNode<T> reverseList1(ListNode<T> head) {
         Stack<ListNode<T>> stack = new Stack<>();
         while(head != null){
@@ -34,7 +53,12 @@ public class LinkUtil<T> {
         temp.next = null;
         return newLink;
     }
-    // 反转链表 - 迭代
+
+    /**
+     * 迭代法反转链表
+     * @param head
+     * @return
+     */
     private ListNode<T> reverseList2(ListNode<T> head) {
         ListNode<T> prev = null;
         ListNode<T> curr = head;
@@ -46,10 +70,83 @@ public class LinkUtil<T> {
         }
         return prev;
     }
-    // 反转链表 - 指定位置
+
+    /**
+     * 反转指定位置的链表
+     * @param head
+     * @param left
+     * @param right
+     * @return
+     */
     private ListNode<T> reverseBetween(ListNode<T> head, int left, int right) {
         // TODO
         return null;
     }
 
+
+    /**
+     * 合并两个有序链表 - 以空间换时间
+     * @param list1
+     * @param list2
+     * @return
+     */
+    private ListNode<Integer> mergeTwoLists(ListNode<Integer> list1, ListNode<Integer> list2){
+//        ListNode<T> cur = null;
+        ListNode<Integer> ret = new ListNode<>(0);
+        ListNode<Integer> dump = ret;
+        while (list1 != null && list2 != null){
+            if (list1.val < list2.val) {
+                ret.next = list1;
+                ret = ret.next;
+                list1 = list1.next;
+            }else {
+                ret.next = list2;
+                ret = ret.next;
+                list2 = list2.next;
+            }
+        }
+        if (list1 == null) ret.next = list2;
+        else ret.next = list1;
+
+        return dump.next;
+    }
+
+    /**
+     * 给定一个已排序的链表的头head，删除所有重复的元素，使每个元素只出现一次，返回已排序的链表
+     * 递归
+     * @param head head node
+     * @return
+     */
+    private ListNode<Integer> deleteDuplicates_1(ListNode<Integer> head){
+
+        if (head == null || head.next == null) return head;
+
+        if (head.val == head.next.val){
+            return deleteDuplicates_1(head.next);
+        }else {
+            head.next = deleteDuplicates_1(head.next);
+            return head;
+        }
+
+    }
+
+    /**
+     * 指针
+     * @param head
+     * @return
+     */
+    private ListNode<Integer> deleteDuplicates_2(ListNode<Integer> head){
+
+        ListNode<Integer> cur = head;
+
+        while (head != null) {
+            if (head.next != null && head.val == head.next.val) {
+                head.next = head.next.next;
+            } else {
+                head = head.next;
+            }
+        }
+        return cur;
+
+    }
 }
