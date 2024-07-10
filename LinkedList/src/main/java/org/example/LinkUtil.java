@@ -168,7 +168,7 @@ public class LinkUtil<T> {
     }
 
     /**
-     * 双指针
+     * 双指针：删除倒数第n个，维护2个pointer，让第1个与第2个指针之间相隔n个，然后遍历，直到第1个pointer为null
      * @param head
      * @param n
      * @return
@@ -178,9 +178,17 @@ public class LinkUtil<T> {
         ListNode<Integer> cur = new ListNode<>(0, head);
         ListNode<Integer> first = head;
         ListNode<Integer> second = cur;
+        for (int i = 0; i < n; i++){
+            first = first.next;
+        }
+        while (first != null) {
+            first = first.next;
+            second = second.next;
+        }
+        second.next = second.next.next;
 
-        
-        return ;
+
+        return cur.next;
     }
 
     /**
