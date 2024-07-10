@@ -43,4 +43,35 @@ public class ListNodeTest {
         assertEquals("1 -> 2 -> 3", result2.toString());
 
     }
+
+    private ListNode<Integer> removeNthFromEnd(ListNode<Integer> head, int n) {
+        ListNode<Integer> cur = new ListNode<>(0, head);
+        ListNode<Integer> dump = cur;
+        int length = getLength(head);
+        for (int i = 0; i < length - n; i++){
+            cur = cur.next;
+        }
+        cur.next = cur.next.next;
+        return dump.next;
+    }
+
+    private int getLength(ListNode<Integer> list){
+        int count = 0;
+        while (list != null){
+            count ++;
+            list = list.next;
+        }
+        return count;
+    }
+
+    @Test
+    public void testRemoveNthFromEnd(){
+        // 1 -> 1 -> 2 -> 3 -> 3
+        ListNode<Integer> list1 = new ListNode<>(1, new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, new ListNode<>(3)))));
+        // 1 -> 2
+        ListNode<Integer> list2 = new ListNode<>(1, new ListNode<>(2));
+        ListNode<Integer> result = removeNthFromEnd(list2, 2);
+        assertEquals("2", result.toString());
+
+    }
 }

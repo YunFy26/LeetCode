@@ -149,4 +149,53 @@ public class LinkUtil<T> {
         return cur;
 
     }
+
+    /**
+     * 删除链表的倒数第 n 个结点，并且返回链表的头结点：获取长度 -> 删除
+     * @param head
+     * @param n
+     * @return
+     */
+    private ListNode<Integer> removeNthFromEnd(ListNode<Integer> head, int n) {
+        ListNode<Integer> cur = new ListNode<>(0, head);
+        ListNode<Integer> dump = cur;
+        int length = getLength(head);
+        for (int i = 0; i < length - n; i++){
+            cur = cur.next;
+        }
+        cur.next = cur.next.next;
+        return dump.next;
+    }
+
+    /**
+     * 双指针
+     * @param head
+     * @param n
+     * @return
+     */
+    private ListNode<Integer> removeNthFromEnd2(ListNode<Integer> head, int n) {
+
+        ListNode<Integer> cur = new ListNode<>(0, head);
+        ListNode<Integer> first = head;
+        ListNode<Integer> second = cur;
+
+        
+        return ;
+    }
+
+    /**
+     * 获取ListNode长度
+     * @param list
+     * @return
+     */
+    private int getLength(ListNode<Integer> list){
+        int count = 0;
+        while (list != null){
+            count ++;
+            list = list.next;
+        }
+        return count;
+    }
+
+
 }
