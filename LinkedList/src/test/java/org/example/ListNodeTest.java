@@ -2,6 +2,8 @@ package org.example;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 public class ListNodeTest {
@@ -73,5 +75,38 @@ public class ListNodeTest {
         ListNode<Integer> result = removeNthFromEnd(list2, 2);
         assertEquals("2", result.toString());
 
+    }
+
+    public ListNode<Integer> swapPairs1(ListNode<Integer> head) {
+
+        if (head == null || head.next == null) return head;
+
+        ListNode<Integer> temp = head.next;
+        head.next = swapPairs1(temp.next);
+        temp.next = head;
+        return temp;
+    }
+
+    public ListNode<Integer> swapPairs2(ListNode<Integer> head) {
+
+        ListNode<Integer> dumpHead = new ListNode<>(0, head);
+        ListNode<Integer> temp = dumpHead;
+        while (temp.next != null && temp.next.next != null){
+            ListNode<Integer> node1 = temp.next; //   1 2 3 4 5
+            ListNode<Integer> node2 = temp.next.next; // 2 3 4 5
+            temp.next = node2; // 2 3 4 5
+            node1.next = node2.next; // 1 3 4 5
+            node2.next = node1; // 2 1 3 4 5
+            temp = node1;
+        }
+        return dumpHead.next;
+
+    }
+
+    @Test
+    public void testSwapPairs(){
+        ListNode<Integer> list1 = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, new ListNode<>(4, new ListNode<>(5)))));
+        ListNode<Integer> result = swapPairs2(list1);
+        assertEquals("2 -> 1 -> 4 -> 3 -> 5", result.toString());
     }
 }

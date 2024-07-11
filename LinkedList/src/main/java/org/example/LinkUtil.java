@@ -1,8 +1,6 @@
 package org.example;
 
-import org.junit.Test;
-
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Stack;
 
 import static org.junit.Assert.assertEquals;
@@ -189,6 +187,42 @@ public class LinkUtil<T> {
 
 
         return cur.next;
+    }
+
+    /**
+     * 两两交换链表中相邻节点 : 递归
+     * @param head
+     * @return
+     */
+    public ListNode<Integer> swapPairsRecursion(ListNode<Integer> head) {
+        if (head == null || head.next == null) return head;
+        ListNode<Integer> dumpHead = head.next;
+        // 只有两个元素时， head.next = dumpHead.next;  --> 在这里递归
+        head.next = swapPairsRecursion(dumpHead.next);
+        dumpHead.next = head;
+        return dumpHead;
+
+    }
+
+    /**
+     * 两两交换链表中相邻节点 : 迭代
+     * @param head
+     * @return
+     */
+    public ListNode<Integer> swapPairsIteration(ListNode<Integer> head) {
+        // head: 1 2 3 4 5
+        ListNode<Integer> dumpHead = new ListNode<>(0, head);
+        ListNode<Integer> temp = dumpHead; // temp: 0 1 2 3 4 5
+        while (temp.next != null && temp.next.next != null){
+            ListNode<Integer> node1 = temp.next; // node1: 1 2 3 4 5
+            ListNode<Integer> node2 = temp.next.next; // node2: 2 3 4 5
+            temp.next = node2; // temp.next: 2 3 4 5  temp: 0 2 3 4 5
+            node1.next = node2.next; // node1.next: 3 4 5  node1: 1 3 4 5
+            node2.next = node1; // node2.next: 1 3 4 5   node2: 2 1 3 4 5
+            temp = node1; // temp: 1 3 4 5
+        }
+        return dumpHead.next;
+
     }
 
     /**
