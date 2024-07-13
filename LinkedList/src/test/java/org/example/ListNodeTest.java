@@ -145,4 +145,41 @@ public class ListNodeTest {
         ListNode<Integer> result = addTwoNumbers(list1, list2);
         System.out.println(result);
     }
+
+    private boolean isPalindrome(ListNode<Integer> head) {
+        // 把前半段入栈
+        int length = getLength(head);
+        Stack<Integer> stack = new Stack<>();
+        // 1 -> 2 -> 3 -> 2 -> 1
+        for (int i=0;i < length/2;i++){
+            stack.push(head.val);
+            head = head.next;
+        }
+        if (length % 2 == 1){
+            while (head.next != null){
+                int cur = stack.pop();
+                if (head.next.val == cur) {
+                    head = head.next;
+                }else return false;
+            }
+            return true;
+        }
+        while (head != null){
+            int cur = stack.pop();
+            if (head.val == cur){
+                head = head.next;
+            }else return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void testIsPalindrome(){
+//        ListNode<Integer> list1 = new ListNode<>(3, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9))))))))));
+//        ListNode<Integer> list2 = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, new ListNode<>(4, new ListNode<>(5)))));
+        ListNode<Integer> list2 = new ListNode<>(1, new ListNode<>(2));
+        boolean result = isPalindrome(list2);
+        System.out.println(result);
+    }
+
 }

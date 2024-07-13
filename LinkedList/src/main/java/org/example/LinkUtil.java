@@ -258,6 +258,40 @@ public class LinkUtil<T> {
     }
 
     /**
+     * 判断是否是回文链表（前向后向输出是同样的
+     * 前半段链表入栈，通过出栈的方式与链表后半段的值进行比较
+     * 时间复杂度O(n), 空间复杂度O(n)
+     * @param head
+     * @return
+     */
+    private boolean isPalindrome(ListNode<Integer> head) {
+        int length = getLength(head);
+        Stack<Integer> stack = new Stack<>();
+        // 1 -> 2 -> 3 -> 2 -> 1
+        for (int i=0;i < length/2;i++){
+            stack.push(head.val);
+            head = head.next;
+        }
+        if (length % 2 == 1){
+            while (head.next != null){
+                int cur = stack.pop();
+                if (head.next.val == cur) {
+                    head = head.next;
+                }else return false;
+            }
+            return true;
+        }
+        while (head != null){
+            int cur = stack.pop();
+            if (head.val == cur){
+                head = head.next;
+            }else return false;
+        }
+        return true;
+    }
+
+
+    /**
      * 获取ListNode长度
      * @param list
      * @return
