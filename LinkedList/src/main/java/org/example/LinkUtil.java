@@ -194,7 +194,7 @@ public class LinkUtil<T> {
      * @param head
      * @return
      */
-    public ListNode<Integer> swapPairsRecursion(ListNode<Integer> head) {
+    private ListNode<Integer> swapPairsRecursion(ListNode<Integer> head) {
         if (head == null || head.next == null) return head;
         ListNode<Integer> dumpHead = head.next;
         // 只有两个元素时， head.next = dumpHead.next;  --> 在这里递归
@@ -209,7 +209,7 @@ public class LinkUtil<T> {
      * @param head
      * @return
      */
-    public ListNode<Integer> swapPairsIteration(ListNode<Integer> head) {
+    private ListNode<Integer> swapPairsIteration(ListNode<Integer> head) {
         // head: 1 2 3 4 5
         ListNode<Integer> dumpHead = new ListNode<>(0, head);
         ListNode<Integer> temp = dumpHead; // temp: 0 1 2 3 4 5
@@ -223,6 +223,38 @@ public class LinkUtil<T> {
         }
         return dumpHead.next;
 
+    }
+
+    /**
+     * 两数相加-链表实现
+     * @param l1
+     * @param l2
+     * @return
+     */
+    private ListNode<Integer> addTwoNumbers(ListNode<Integer> l1, ListNode<Integer> l2) {
+        Stack<ListNode<Integer>> stack1 = new Stack<>();
+        Stack<ListNode<Integer>> stack2 = new Stack<>();
+        while (l1 != null) {
+            stack1.push(l1);
+            l1 = l1.next;
+        }
+        while (l2 != null){
+            stack2.push(l2);
+            l2 = l2.next;
+        }
+
+        int carry = 0;
+        ListNode<Integer> dump = null;
+        while (!stack1.isEmpty() || !stack2.isEmpty() || carry > 0){
+            int sum = carry;
+            sum += stack1.isEmpty()? 0 : stack1.pop().val;
+            sum += stack2.isEmpty()? 0 : stack2.pop().val;
+            ListNode<Integer> head = new ListNode<>(sum % 10); // head: 2 下一轮 head : 3
+            head.next = dump; // head: 2 -> null   下一轮: head: 3 -> 2 -> null
+            dump = head; // dump: 2 -> null;  下一轮 dump: 3 -> 2 -> null
+            carry = sum / 10;
+        }
+        return dump;
     }
 
     /**

@@ -3,6 +3,7 @@ package org.example;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import static org.junit.Assert.assertEquals;
 
@@ -108,5 +109,40 @@ public class ListNodeTest {
         ListNode<Integer> list1 = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, new ListNode<>(4, new ListNode<>(5)))));
         ListNode<Integer> result = swapPairs2(list1);
         assertEquals("2 -> 1 -> 4 -> 3 -> 5", result.toString());
+    }
+
+    private ListNode<Integer> addTwoNumbers(ListNode<Integer> l1, ListNode<Integer> l2) {
+        Stack<ListNode<Integer>> stack1 = new Stack<>();
+        Stack<ListNode<Integer>> stack2 = new Stack<>();
+        while (l1 != null) {
+            stack1.push(l1);
+            l1 = l1.next;
+        }
+        while (l2 != null){
+            stack2.push(l2);
+            l2 = l2.next;
+        }
+
+        int carry = 0;
+        ListNode<Integer> dump = null;
+        while (!stack1.isEmpty() || !stack2.isEmpty() || carry > 0){
+            int sum = carry;
+            sum += stack1.isEmpty()? 0 : stack1.pop().val;
+            sum += stack2.isEmpty()? 0 : stack2.pop().val;
+            ListNode<Integer> head = new ListNode<>(sum % 10);
+            head.next = dump;
+            dump = head;
+            carry = sum / 10;
+        }
+        return dump;
+    }
+
+    @Test
+    public void testAddTwoNumbers(){
+        ListNode<Integer> list1 = new ListNode<>(3, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9, new ListNode<>(9))))))))));
+//        ListNode<Integer> list2 = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, new ListNode<>(4, new ListNode<>(5)))));
+        ListNode<Integer> list2 = new ListNode<>(7);
+        ListNode<Integer> result = addTwoNumbers(list1, list2);
+        System.out.println(result);
     }
 }
