@@ -16,7 +16,7 @@ public class LinkUtil<T> {
      * @param headB
      * @return
      */
-    private ListNode<T> getIntersectionNode(ListNode<T> headA, ListNode<T> headB) {
+    public ListNode<T> getIntersectionNode(ListNode<T> headA, ListNode<T> headB) {
         if(headA == null || headB == null) return null;
         ListNode<T> pA = headA;
         ListNode<T> pB = headB;
@@ -32,7 +32,7 @@ public class LinkUtil<T> {
      * @param head
      * @return
      */
-    private ListNode<T> reverseList1(ListNode<T> head) {
+    public ListNode<T> reverseList1(ListNode<T> head) {
         Stack<ListNode<T>> stack = new Stack<>();
         while(head != null){
             stack.push(head);
@@ -57,7 +57,7 @@ public class LinkUtil<T> {
      * @param head
      * @return
      */
-    private ListNode<T> reverseList2(ListNode<T> head) {
+    public ListNode<T> reverseList2(ListNode<T> head) {
         ListNode<T> prev = null;
         ListNode<T> curr = head;
         while(curr != null){
@@ -76,7 +76,7 @@ public class LinkUtil<T> {
      * @param right
      * @return
      */
-    private ListNode<T> reverseBetween(ListNode<T> head, int left, int right) {
+    public ListNode<T> reverseBetween(ListNode<T> head, int left, int right) {
         // TODO
         return null;
     }
@@ -88,7 +88,7 @@ public class LinkUtil<T> {
      * @param list2
      * @return
      */
-    private ListNode<Integer> mergeTwoLists(ListNode<Integer> list1, ListNode<Integer> list2){
+    public ListNode<Integer> mergeTwoLists(ListNode<Integer> list1, ListNode<Integer> list2){
 //        ListNode<T> cur = null;
         ListNode<Integer> ret = new ListNode<>(0);
         ListNode<Integer> dump = ret;
@@ -115,14 +115,14 @@ public class LinkUtil<T> {
      * @param head head node
      * @return
      */
-    private ListNode<Integer> deleteDuplicates_1(ListNode<Integer> head){
+    public ListNode<Integer> deleteDuplicatesRecursion(ListNode<Integer> head){
 
         if (head == null || head.next == null) return head;
 
         if (head.val == head.next.val){
-            return deleteDuplicates_1(head.next);
+            return deleteDuplicatesRecursion(head.next);
         }else {
-            head.next = deleteDuplicates_1(head.next);
+            head.next = deleteDuplicatesRecursion(head.next);
             return head;
         }
 
@@ -133,7 +133,7 @@ public class LinkUtil<T> {
      * @param head
      * @return
      */
-    private ListNode<Integer> deleteDuplicates_2(ListNode<Integer> head){
+    public ListNode<Integer> deleteDuplicatesPointer(ListNode<Integer> head){
 
         ListNode<Integer> cur = head;
 
@@ -154,7 +154,7 @@ public class LinkUtil<T> {
      * @param n
      * @return
      */
-    private ListNode<Integer> removeNthFromEnd(ListNode<Integer> head, int n) {
+    public ListNode<Integer> removeNthFromEnd(ListNode<Integer> head, int n) {
         ListNode<Integer> cur = new ListNode<>(0, head);
         ListNode<Integer> dump = cur;
         int length = getLength(head);
@@ -171,7 +171,7 @@ public class LinkUtil<T> {
      * @param n
      * @return
      */
-    private ListNode<Integer> removeNthFromEnd2(ListNode<Integer> head, int n) {
+    public ListNode<Integer> removeNthFromEnd2(ListNode<Integer> head, int n) {
 
         ListNode<Integer> cur = new ListNode<>(0, head);
         ListNode<Integer> first = head;
@@ -194,7 +194,7 @@ public class LinkUtil<T> {
      * @param head
      * @return
      */
-    private ListNode<Integer> swapPairsRecursion(ListNode<Integer> head) {
+    public ListNode<Integer> swapPairsRecursion(ListNode<Integer> head) {
         if (head == null || head.next == null) return head;
         ListNode<Integer> dumpHead = head.next;
         // 只有两个元素时， head.next = dumpHead.next;  --> 在这里递归
@@ -209,7 +209,7 @@ public class LinkUtil<T> {
      * @param head
      * @return
      */
-    private ListNode<Integer> swapPairsIteration(ListNode<Integer> head) {
+    public ListNode<Integer> swapPairsIteration(ListNode<Integer> head) {
         // head: 1 2 3 4 5
         ListNode<Integer> dumpHead = new ListNode<>(0, head);
         ListNode<Integer> temp = dumpHead; // temp: 0 1 2 3 4 5
@@ -231,7 +231,7 @@ public class LinkUtil<T> {
      * @param l2
      * @return
      */
-    private ListNode<Integer> addTwoNumbers(ListNode<Integer> l1, ListNode<Integer> l2) {
+    public ListNode<Integer> addTwoNumbers(ListNode<Integer> l1, ListNode<Integer> l2) {
         Stack<ListNode<Integer>> stack1 = new Stack<>();
         Stack<ListNode<Integer>> stack2 = new Stack<>();
         while (l1 != null) {
@@ -264,7 +264,7 @@ public class LinkUtil<T> {
      * @param head
      * @return
      */
-    private boolean isPalindrome(ListNode<Integer> head) {
+    public boolean isPalindrome(ListNode<Integer> head) {
         int length = getLength(head);
         Stack<Integer> stack = new Stack<>();
         // 1 -> 2 -> 3 -> 2 -> 1
@@ -296,7 +296,7 @@ public class LinkUtil<T> {
      * @param list
      * @return
      */
-    private int getLength(ListNode<Integer> list){
+    public int getLength(ListNode<Integer> list){
         int count = 0;
         while (list != null){
             count ++;
