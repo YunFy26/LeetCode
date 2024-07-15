@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 import static org.junit.Assert.assertEquals;
@@ -288,6 +287,36 @@ public class LinkUtil<T> {
             }else return false;
         }
         return true;
+    }
+
+    /**
+     * 给一个头结点为 head 的单链表和一个整数 k ，将链表分隔为 k 个连续的部分
+     * @param head
+     * @param k
+     * @return
+     */
+    public ListNode[] splitListToParts(ListNode<Integer> head, int k) {
+        int length = getLength(head);
+        int average = length / k;
+        int remainder = length % k;
+        ListNode<Integer>[] listNodes = new ListNode[k];
+        
+        ListNode<Integer> temp = head;
+        for (int i = 0; i < k && temp != null; i++){
+            listNodes[i] = temp;
+            int size = average + (i < remainder? 1 : 0);
+            for (int j = 1; j < size; j++) {
+                temp =  temp.next;
+            }
+            // 1 2 3 -> 1 截断temp.next
+            ListNode<Integer> next = temp.next;
+            temp.next = null;
+            temp = next;
+
+        }
+
+
+        return listNodes;
     }
 
 

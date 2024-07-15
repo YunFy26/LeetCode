@@ -80,4 +80,13 @@ public class LinkUtilTest {
         boolean result = linkUtil.isPalindrome(list2);
         System.out.println(result);
     }
+
+    @Test
+    public void testSplitListToParts(){
+        int k = 5;
+        ListNode<Integer> list2 = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3)));
+        linkUtil.splitListToParts(list2, k);
+    }
+
+
 }
