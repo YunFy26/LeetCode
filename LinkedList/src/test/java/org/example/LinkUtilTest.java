@@ -88,5 +88,11 @@ public class LinkUtilTest {
         linkUtil.splitListToParts(list2, k);
     }
 
+    @Test
+    public void testOddEvenList(){
+        ListNode<Integer> list2 = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3)));
+        linkUtil.oddEvenList(list2);
+    }
+
 
 }
