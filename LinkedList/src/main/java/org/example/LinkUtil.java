@@ -323,8 +323,8 @@ public class LinkUtil<T> {
     }
 
     /**
-     * 给定单链表的头节点 head 将所有索引为奇数的节点和索引为偶数的节点分别组合在一起
-     * 然后返回重新排序的列表
+     * 给定单链表的头节点 head 将所有索引为奇数的节点和索引为偶数的节点分别组合在一起,然后返回重新排序的列表
+     * 转换成数组，时间复杂度，空间复杂度均为O(n)
      * @param head 单链表的头节点
      * @return 重新排序的列表
      */
@@ -348,6 +348,27 @@ public class LinkUtil<T> {
             oddEven = oddEven.next;
         }
         return dump.next;
+    }
+
+    /**
+     * 同上，不转换为数组
+     * 时间复杂度O(n), 空间复杂度O(1)
+     * @param head
+     * @return
+     */
+    public ListNode<Integer> oddEvenList2(ListNode<Integer> head) {
+        if (head == null) return head;
+        ListNode<Integer> evenHead = head.next;
+        ListNode<Integer> odd = head, even = evenHead;
+        while (even != null && even.next != null){
+            odd.next = even.next;
+            odd = odd.next;
+            even.next = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+        return head;
+
     }
 
 
