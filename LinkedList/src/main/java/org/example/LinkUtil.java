@@ -1,5 +1,8 @@
 package org.example;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import static org.junit.Assert.assertEquals;
@@ -300,7 +303,7 @@ public class LinkUtil<T> {
         int average = length / k;
         int remainder = length % k;
         ListNode<Integer>[] listNodes = new ListNode[k];
-        
+
         ListNode<Integer> temp = head;
         for (int i = 0; i < k && temp != null; i++){
             listNodes[i] = temp;
@@ -317,6 +320,34 @@ public class LinkUtil<T> {
 
 
         return listNodes;
+    }
+
+    /**
+     * 给定单链表的头节点 head 将所有索引为奇数的节点和索引为偶数的节点分别组合在一起
+     * 然后返回重新排序的列表
+     * @param head 单链表的头节点
+     * @return 重新排序的列表
+     */
+    public ListNode<Integer> oddEvenList(ListNode<Integer> head) {
+
+        ArrayList<Integer> valArray = new ArrayList<>();
+        ListNode<Integer> oddEven = new ListNode<>(0, head);
+        ListNode<Integer> dump = oddEven;
+        while (head != null){
+            valArray.add(head.val);
+            head = head.next;
+        }
+
+        for (int i = 0; i < valArray.size(); i+=2){
+            oddEven.next.val = valArray.get(i);
+            oddEven = oddEven.next;
+        }
+
+        for (int i = 1; i < valArray.size(); i+=2){
+            oddEven.next.val = valArray.get(i);
+            oddEven = oddEven.next;
+        }
+        return dump.next;
     }
 
 
